@@ -1,0 +1,146 @@
+body {
+    margin: 100px;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #74b9ff, #a29bfe);
+    color: #2d3436;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Judul Utama Halaman */
+body > h1 {
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+}
+
+/* --- 2. GABUNGAN PAPAN MENGAMBANG (FLOATING CARD) --- */
+.floating-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+    /* Keadaan Awal saat Scroll (Kecil, Bergeser, Transparan) */
+    opacity: 0;
+    transform: translateY(40px) scale(0.85);
+    transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+/* Keadaan Aktif saat Masuk Layar (Smooth Scale Up) */
+.floating-card.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Efek Bergantian (Staggered) Antar Papan */
+.floating-card:nth-child(1) { transition-delay: 0.10s; }
+.floating-card:nth-child(2) { transition-delay: 0.20s; }
+
+/* --- 3. GABUNGAN MARQUEE CONTAINER (TEKS BERJALAN) --- */
+.marquee-container {
+    width: 100%;
+    max-width: 500%;     /* Batas maksimal lebar kotak */
+    word-wrap: break-word; /* Memecah kata yang terlalu panjang */
+    overflow-wrap: break-word;
+    overflow: hidden; /* Menyembunyikan teks keluar dari batas papan */
+    white-space: nowrap; /* Mencegah teks turun ke baris baru */
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+/* Teks Judul Marquee */
+.marquee-container h1,
+.marquee-container h3 {
+    display: inline-block;
+    padding-left: 100%; /* Mulai berjalan dari luar batas kanan papan */
+    margin: 0;
+    color: #0026ff;
+    animation: marqueeScroll 10s linear infinite; /* Animasi berjalan terus-menerus */
+}
+
+/* Membedakan Kecepatan & Delay Marquee secara Bergantian antar Papan */
+.floating-card:nth-child(even) .marquee-container h1,
+.floating-card:nth-child(even) .marquee-container h3 {
+    animation-delay: 1s; /* Jeda sedikit untuk papan genap */
+    animation-duration: 10s; /* Durasi sedikit lebih lambat agar bergantian */
+}
+
+/* Keyframes untuk Pergerakan Teks Marquee */
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* --- 4. PENATAAN FORMULIR & ELEMEN INPUT --- */
+form label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #636e72;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 6px;
+    border: 1px solid #989a9b;
+    border-radius: 8px;
+    background-color: #f7f9fa;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: border-color 0.4s, background-color 0.4s;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+select:focus {
+    border-color: #0984e3;
+    background-color: #ffffff;
+    outline: none;
+}
+
+input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+button[type="button"] {
+    background-color: #0984e3;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button[type="button"]:hover {
+    background-color: #74b9ff;
+    transform: translateY(-2px);
+}
+
+p {
+    white-space: normal;
+    word-break: break-word;
+}
